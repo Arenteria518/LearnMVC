@@ -36,7 +36,7 @@ namespace learnMVC.Controllers
             emp.LastName = "Renteria";
             emp.Salary = 100000;
 
-            ViewData["Employee"] = emp;
+            ViewBag.Employee = emp;
             return View("myView");
         }
     }
