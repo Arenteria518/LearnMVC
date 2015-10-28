@@ -33,26 +33,31 @@ namespace learnMVC.Controllers
 
         public ActionResult getView()
         {
-            Employee emp = new Employee();
-            emp.FirstName = "Anthony";
-            emp.LastName = "Renteria";
-            emp.Salary = 100000;
+            EmployeeListViewModel employeeListViewModel = new EmployeeListViewModel();
 
-            EmployeeViewModel vmEmp = new EmployeeViewModel();
-            vmEmp.EmployeeName = emp.FirstName + " " + emp.LastName;
-            vmEmp.Salary = emp.Salary.ToString("C");
-            if(emp.Salary > 1500)
+            EmployeeBuisnessLayer empBal = new EmployeeBuisnessLayer();
+            List<Employee> employees = empBal.GetEmployees();
+
+            List<EmployeeViewModel> empViewModels = new List<EmployeeViewModel>();
+
+            foreach (Employee emp in employees)
             {
-                vmEmp.SalaryColor = "yellow";
+                EmployeeViewModel empViewModel = new EmployeeViewModel();
+                empViewModel.EmployeeName = emp.FirstName + " " + emp.LastName;
+                empViewModel.Salary = emp.Salary.ToString("C");
+                if(emp.Salary > 15000)
+                {
+                    empViewModel.SalaryColor = "yellow";
+                }
+                else
+                {
+                    empViewModel.SalaryColor = "green";
+                }
+                empViewModels.Add(empViewModel);
             }
-            else
-            {
-                vmEmp.SalaryColor = "green";
-            }
-
-            vmEmp.UserName = "Admin";
-
-            return View("myView", vmEmp);
+            employeeListViewModel.Employees = empViewModels;
+            employeeListViewModel.UserName = "Admin";
+            return View("myView", employeeListViewModel);
         }
     }
 
