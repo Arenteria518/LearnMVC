@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using learnMVC.Models;
 
 namespace learnMVC.Controllers
 {
@@ -30,6 +31,12 @@ namespace learnMVC.Controllers
 
         public ActionResult getView()
         {
+            Employee emp = new Employee();
+            emp.FirstName = "Anthony";
+            emp.LastName = "Renteria";
+            emp.Salary = 100000;
+
+            ViewData["Employee"] = emp;
             return View("myView");
         }
     }
