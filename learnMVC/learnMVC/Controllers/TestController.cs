@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using learnMVC.ViewModels;
 using learnMVC.Models;
+
 
 namespace learnMVC.Controllers
 {
@@ -35,7 +37,22 @@ namespace learnMVC.Controllers
             emp.FirstName = "Anthony";
             emp.LastName = "Renteria";
             emp.Salary = 100000;
-            return View("myView", emp);
+
+            EmployeeViewModel vmEmp = new EmployeeViewModel();
+            vmEmp.EmployeeName = emp.FirstName + " " + emp.LastName;
+            vmEmp.Salary = emp.Salary.ToString("C");
+            if(emp.Salary > 1500)
+            {
+                vmEmp.SalaryColor = "yellow";
+            }
+            else
+            {
+                vmEmp.SalaryColor = "green";
+            }
+
+            vmEmp.UserName = "Admin";
+
+            return View("myView", vmEmp);
         }
     }
 
